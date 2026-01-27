@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="button_blackgrouund">#FFFFFF</color>
+    <color name="button_text">#000000</color>
+    <color name="icon_tint">#212121</color>
+    <color name="background">#121212</color>
+    <color name="primary_blue">#3A76F0</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="grave_icon">#888888</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_light">#E0E0E0</color>
+
+    <color name="background_color">#FFFFFF</color>
+    <color name="text_color">#000000</color>
+    <color name="button_background_color">#FFFFFF</color>
+    <color name="button_text_color">#000000</color>
+    <color name="button_icon_color">#000000</color>
+    <color name="switch_thumb_color">#CCCCCC</color>
+    <color name="switch_track_color">#E0E0E0</color>
+    <color name="icon_color">#888888</color>
+    <color name="primary">#4285F4</color>
+    <color name="gray">#F5F5F5</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="accent">#00C853</color>
 </resources>
