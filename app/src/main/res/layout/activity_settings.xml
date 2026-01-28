@@ -13,16 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back"
+            android:padding="16dp"
+            android:scaleType="center"
             android:src="@drawable/ic_arrow_back" />
 
         <TextView
@@ -32,7 +34,7 @@
             android:layout_weight="1"
             android:text="@string/settings"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -49,13 +51,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/dark_theme"
-            android:textColor="@color/black" />
-
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_dark_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/switch_padding" />
+            android:layout_marginStart="@dimen/switch_padding"
+            android:contentDescription="@string/dark_theme_switch_desc"
+            />
 
     </LinearLayout>
 
@@ -75,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/share_app"
+            android:textSize="16sp"
             android:textColor="@color/black" />
 
         <ImageView
@@ -102,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/write_to_support"
+            android:textSize="16sp"
             android:textColor="@color/black" />
 
         <ImageView
@@ -124,14 +130,15 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/user_agreement"
-            android:textColor="@color/black" />
+           <TextView
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="@string/user_agreement"
+               android:textSize="16sp"
+               android:textColor="@color/black" />
 
-        <ImageView
+           <ImageView
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/switch_padding"

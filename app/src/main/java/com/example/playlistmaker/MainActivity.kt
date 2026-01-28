@@ -17,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<MaterialButton>(R.id.btn_search).setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
-        //findViewById<MaterialButton>(R.id.btn_back).setOnClickListener {
-           // startActivity(Intent(this, SearchActivity::class.java))
-       // }
+
         findViewById<MaterialButton>(R.id.btn_library).setOnClickListener {
             startActivity(Intent(this, LibraryActivity::class.java))
         }

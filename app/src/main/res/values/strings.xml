@@ -14,6 +14,7 @@
     <string name="terms_label">Пользовательское соглашенеие</string>
     <string name="back">Назад</string>
     <string name="share_icon_desc">Поделиться</string>
+    <string name="dark_theme_switch_desc">Включить или выключить тёмную тему</string>
     <string name="support_icon_desc">Поддержка</string>
     <string name="arrow_right_desc">Перейти</string>
     <string name="media_empty">Ваша медиатека пуста</string>
