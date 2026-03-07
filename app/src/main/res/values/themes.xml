@@ -1,9 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PlaylistMaker" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <style name="Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnSecondary">@color/black</item>
 
-    <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
+        <item name="android:colorBackground">@color/background_color</item>
+        <item name="colorSurface">@color/background_color</item>
+        <item name="colorOnSurface">@color/primary_text</item>
+        <item name="colorError">@color/accent</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background_color</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
 </resources>
