@@ -59,7 +59,9 @@
             android:id="@+id/switch_dark_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/dark_theme_switch_desc" />
+            android:contentDescription="@string/dark_theme_switch_desc"
+            app:trackTint="@color/switch_track_color"
+            app:thumbTint="@color/switch_thumb_color"/>
 
     </LinearLayout>
 

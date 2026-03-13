@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- Цвет поля поиска в темной теме: белый -->
+        <color name="gray_light">#FFFFFF</color>
+        <color name="search_icon_color">#000000</color>
+        <!-- Цвета для переключателя в темной теме -->
+        <color name="switch_thumb_color">#BDBDBD</color>
+        <color name="switch_track_color">#424242</color>
+        <color name="black">#000000</color>
+        <!-- Бирюзовый цвет для тумблера (используется в обеих темах) -->
+        <color name="accent">#00C853</color>
+
+        <!-- Цвета для кнопок в темной теме (остаются белыми) -->
+        <color name="button_background">#FFFFFF</color>
+        <color name="button_text">#000000</color>
+        <color name="button_icon_color">#000000</color>
+
+</resources>

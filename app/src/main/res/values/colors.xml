@@ -4,26 +4,26 @@
     <color name="white">#FFFFFF</color>
     <color name="primary_blue">#3A76F0</color>
 
-    <!-- Светлая тема -->
+
     <color name="background_color">#FFFFFF</color>
     <color name="primary_text">#000000</color>
     <color name="icon_color">#888888</color>
     <color name="gray_500">#9E9E9E</color>
 
-    <!-- Темная тема -->
+
     <color name="background">#121212</color>
     <color name="primary_text_dark">#FFFFFF</color>
 
-    <!-- Для кнопок -->
+    <color name="search_icon_color">#757575</color>
     <color name="button_background">#FFFFFF</color>
     <color name="button_text">#000000</color>
     <color name="button_icon_color">#000000</color>
 
-    <!-- Для switch -->
+
     <color name="switch_thumb_color">#CCCCCC</color>
     <color name="switch_track_color">#E0E0E0</color>
 
-    <!-- Дополнительные -->
+
     <color name="accent">#00C853</color>
     <color name="gray_light">#E0E0E0</color>
 </resources>
