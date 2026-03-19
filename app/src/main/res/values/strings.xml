@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Playlist Maker</string>
+    <string name="app_name">Playlist maker</string>
     <string name="clear_search">Очистить поиск</string>
     <string name="search">Поиск</string>
     <string name="search_hint">Поиск</string>
@@ -33,7 +33,7 @@
     <string name="arrow_right_desc">Перейти</string>
     <string name="share_message">Посмотрите крутое приложение для создания плейлистов: https://practicum.yandex.ru/</string>
     <string name="support_email">support@playlistmaker.com</string>
-    <string name="email_subject">Сообщение разработчикам Playlist Maker</string>
+    <string name="email_subject">Сообщение разработчикам Playlist maker</string>
     <string name="email_text">Здравствуйте!\n\nОпишите вашу проблему или предложение:\n\n\n\nС уважением,\n[Ваше имя]</string>
 
 

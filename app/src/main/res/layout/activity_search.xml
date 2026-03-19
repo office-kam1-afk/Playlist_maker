@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,27 +13,23 @@
         android:layout_height="56dp"
         android:background="?attr/colorSurface"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:contentInsetStartWithNavigation="0dp"
-        app:contentInsetStart="16dp"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="?attr/colorOnSurface"
         app:title="@string/search"
-        app:titleTextColor="?attr/colorOnSurface" />
+        app:titleTextColor="?attr/colorOnSurface"  />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+
+        android:layout_marginTop="8dp">
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:autofillHints=""
-            android:background="@color/gray_light"
+            android:background="@drawable/bg_edittext_rounded"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
             android:hint="@string/search_hint"
@@ -42,10 +39,12 @@
             android:paddingTop="12dp"
             android:paddingEnd="48dp"
             android:paddingBottom="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/gray_search"
+            android:textColorHint="@color/gray_search_Pole"
             android:textColorHighlight="?attr/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:cornerRadius="12dp"
+             />
 
         <ImageView
             android:id="@+id/clearButton"

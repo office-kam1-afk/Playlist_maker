@@ -2,7 +2,7 @@
 <resources>
     <!-- ИЗМЕНЕНИЕ: Добавлен новый стиль для заголовка Toolbar -->
     <style name="ToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
@@ -46,7 +46,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
