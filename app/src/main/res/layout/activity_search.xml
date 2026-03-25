@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="4dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,32 +15,34 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="?attr/colorOnSurface"
+
         app:title="@string/search"
-        app:titleTextColor="?attr/colorOnSurface"  />
+        app:titleTextColor="?attr/colorOnSurface" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:layout_marginTop="8dp">
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:autofillHints=""
             android:background="@drawable/bg_edittext_rounded"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
+            android:paddingStart="16dp"
             android:hint="@string/search_hint"
             android:inputType="text"
             android:maxLines="1"
-            android:paddingStart="16dp"
             android:paddingTop="12dp"
             android:paddingEnd="48dp"
             android:paddingBottom="12dp"
-            android:textColor="@color/gray_search"
-            android:textColorHint="@color/gray_search_Pole"
+            android:textColor="@color/text_search"
+            android:textColorHint="@color/gray_search"
             android:textColorHighlight="?attr/colorPrimary"
             android:textSize="16sp"
             app:cornerRadius="12dp"
@@ -48,16 +50,17 @@
 
         <ImageView
             android:id="@+id/clearButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="12dp"
             android:contentDescription="@string/clear_search"
-            android:padding="2dp"
+            android:padding="-20dp"
             android:src="@drawable/ic_close"
+
             android:visibility="gone"
             app:titleTextColor="?attr/colorOnSurface"
-            app:tint="@color/button_icon_color" />
+            app:tint="@color/gray_search" />
 
 
     </FrameLayout>

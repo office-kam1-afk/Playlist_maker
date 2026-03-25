@@ -4,11 +4,13 @@
         <color name="primary_text">#FFFFFF</color>
         <color name="button_background">#FFFFFF</color>
         <color name="button_text">#121212</color>
+        <color name="text_search">#121212</color>
         <color name="search_icon_color">#FFFFFF</color>
         <color name="switch_track_color">#424242</color>
         <color name="switch_thumb_color">#BDBDBD</color>
         <color name="gray_search_Pole">#FFFFFF</color>
         <color name="gray_light">#FFFFFF</color>
+        <color name="gray_search">#121212</color>
 
 
 

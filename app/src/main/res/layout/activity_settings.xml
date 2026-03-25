@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingStart="16dp"
+        android:paddingStart="0dp"
         android:paddingEnd="16dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp">
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="48dp"
@@ -22,49 +22,51 @@
             android:contentDescription="@string/back"
             android:padding="1dp"
             android:background="?attr/colorSurface"
-            app:tint="?attr/colorOnSurface"/>
+            app:tint="?attr/colorOnSurface"
+            android:layout_marginEnd="16dp"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/settings_title"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-medium"/>
 
     </LinearLayout>
 
-      <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="32dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/textView_theme_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif"
+
             android:text="@string/dark_theme"
-            android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:fontFamily="sans-serif"/>
+            android:textSize="16sp" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_dark_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/dark_theme_switch_desc"
-
-            app:thumbTint="@color/accent"/>
+            app:thumbTint="@color/gray_search"
+            app:trackTint="@color/gray_search_Pole" />
 
     </LinearLayout>
 
@@ -72,62 +74,62 @@
         android:id="@+id/item_share_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif"
             android:text="@string/share_app"
-            android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:fontFamily="sans-serif"/>
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_share"
             android:contentDescription="@string/share_icon_desc"
+            android:src="@drawable/ic_share"
             app:tint="@color/gray_500" />
 
     </LinearLayout>
 
-     <LinearLayout
+    <LinearLayout
         android:id="@+id/item_write_to_support"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif"
             android:text="@string/write_to_support"
-            android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:fontFamily="sans-serif"/>
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_support"
             android:contentDescription="@string/support_icon_desc"
+            android:src="@drawable/ic_support"
             app:tint="@color/gray_500" />
 
     </LinearLayout>
@@ -137,33 +139,32 @@
         android:id="@+id/item_user_agreement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="34dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/terms"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface" />
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_right"
             android:contentDescription="@string/arrow_right_desc"
+            android:src="@drawable/ic_arrow_right"
             app:tint="@color/gray_500" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>
