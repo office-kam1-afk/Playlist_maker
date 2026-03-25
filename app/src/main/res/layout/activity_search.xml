@@ -38,9 +38,10 @@
             android:hint="@string/search_hint"
             android:inputType="text"
             android:maxLines="1"
-            android:paddingTop="12dp"
+            android:paddingTop="16dp"
             android:paddingEnd="48dp"
             android:paddingBottom="12dp"
+
             android:textColor="@color/text_search"
             android:textColorHint="@color/gray_search"
             android:textColorHighlight="?attr/colorPrimary"
@@ -50,12 +51,15 @@
 
         <ImageView
             android:id="@+id/clearButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="-14dp"
+
+
             android:contentDescription="@string/clear_search"
-            android:padding="-20dp"
+
+            android:padding="8dp"
             android:src="@drawable/ic_close"
 
             android:visibility="gone"
