@@ -12,13 +12,14 @@
         <color name="gray_light">#FFFFFF</color>
         <color name="gray_search">#121212</color>
 
-
+        <color name="button_retry_bg">#ffffff</color>
+        <color name="button_retry_text">#000000</color>
         <color name="black">#121212</color>
 
         <color name="accent">#3A76F0</color>
 
 
 
-        <color name="button_icon_color">#121212</color>
+        <color name="button_icon_color">@color/black</color>
 
 </resources>

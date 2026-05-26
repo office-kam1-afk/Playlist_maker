@@ -33,19 +33,18 @@
             android:background="@drawable/bg_edittext_rounded"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
-            android:paddingStart="16dp"
             android:hint="@string/search_hint"
             android:inputType="text"
             android:maxLines="1"
+            android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:paddingEnd="48dp"
             android:paddingBottom="12dp"
             android:textColor="@color/text_search"
             android:textColorHint="@color/gray_search"
-            android:textColorHighlight="?attr/colorPrimary"
             android:textSize="16sp"
-            app:cornerRadius="12dp"
-             />
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
         <ImageView
             android:id="@+id/clearButton"
@@ -57,17 +56,102 @@
             android:padding="8dp"
             android:src="@drawable/ic_close"
             android:visibility="gone"
-            app:titleTextColor="?attr/colorOnSurface"
             app:tint="@color/gray_search" />
-
-
     </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="16dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/emptyPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="1"
+            android:src="@drawable/ic_music_empty"
+
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/search_empty_message"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/errorPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="1"
+            android:src="@drawable/light_mode"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+
+            android:text="@string/loader_message"
+
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retryButton"
+
+            android:layout_width="344px"
+            android:layout_height="130px"
+
+            app:backgroundTint="@color/button_retry_bg"
+            android:textColor="@color/button_retry_text"
+            android:layout_marginBottom="16dp"
+
+
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:text="@string/search_retry_button"
+            app:cornerRadius="@dimen/button_corner_radius"
+
+
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/button_icon_padding"
+            app:iconTint="@color/button_icon_color"
+
+
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

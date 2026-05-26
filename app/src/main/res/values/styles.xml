@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ИЗМЕНЕНИЕ: Добавлен новый стиль для заголовка Toolbar -->
+
     <style name="ToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
@@ -19,7 +19,6 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
-    <!-- ИЗМЕНЕНИЕ: Увеличены отступы с 12dp до 16dp, добавлен minHeight -->
     <style name="SettingsItemStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -35,13 +34,12 @@
         <item name="android:minHeight">56dp</item>
     </style>
 
-    <!-- ИЗМЕНЕНИЕ: Добавлен отдельный стиль для items с переключателем -->
     <style name="SettingsItemSwitchStyle" parent="SettingsItemStyle">
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
     </style>
 
-    <!-- ИЗМЕНЕНИЕ: Добавлен fontFamily -->
+
     <style name="SettingsTextStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

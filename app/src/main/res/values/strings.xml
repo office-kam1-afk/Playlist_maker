@@ -8,9 +8,13 @@
     <string name="settings_title">Настройки</string>
     <string name="dark_theme_label">Темная тема</string>
 
-    <!-- ДОБАВИТЬ ЭТУ СТРОКУ -->
-    <string name="track_cover">Обложка трека</string>
 
+    <string name="track_cover">Обложка трека</string>
+    <string name="search_empty_message">Ничего не нашлось</string>
+    <string name="search_error_message">Проблемы со связью.</string>
+    <string name="loader_message">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+
+    <string name="search_retry_button">Обновить</string>
     <string name="artwork_description">Album artwork</string>
     <string name="media_library">Медиатека</string>
     <string name="dark_theme">Темная тема</string>
