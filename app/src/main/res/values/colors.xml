@@ -19,8 +19,9 @@
 
     <color name="search_icon_color">#757575</color>
 
-
-    <color name="button_icon_color">#121212</color>
+    <color name="button_retry_bg">@color/black</color>
+    <color name="button_retry_text">#FFFFFF</color>
+    <color name="button_icon_color">@color/black</color>
 
 
     <color name="switch_thumb_color">#CCCCCC</color>
