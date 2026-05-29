@@ -130,26 +130,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/retryButton"
-
-            android:layout_width="344px"
-            android:layout_height="130px"
-
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
             app:backgroundTint="@color/button_retry_bg"
             android:textColor="@color/button_retry_text"
             android:layout_marginBottom="16dp"
-
-
             android:textAllCaps="false"
             android:textSize="18sp"
             android:text="@string/search_retry_button"
             app:cornerRadius="@dimen/button_corner_radius"
-
-
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/button_icon_padding"
             app:iconTint="@color/button_icon_color"
-
-
             />
 
     </LinearLayout>
