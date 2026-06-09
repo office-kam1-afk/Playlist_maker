@@ -8,8 +8,8 @@ class SearchHistory (private val sharedPreferences: SharedPreferences) {
     private val historyKey = "search_history_key"
     private val maxHistorySize = 10
 
-    private val historySet = LinkedHashSet<Track>()
-    private var historyList = ArrayList<Track>()
+    private var historyList = mutableListOf<Track>()
+
     init {
         loadHistory()
     }
@@ -21,12 +21,12 @@ class SearchHistory (private val sharedPreferences: SharedPreferences) {
 
 
         if (historyList.size > maxHistorySize) {
-            historyList.removeAt(historyList.size - 1)
+            historyList.removeAt(historyList.lastIndex)
         }
         saveHistory()
     }
     fun getHistory(): List<Track> {
-        return historyList
+        return historyList.toList()
     }
     fun clearHistory() {
         historyList.clear()
@@ -36,7 +36,7 @@ class SearchHistory (private val sharedPreferences: SharedPreferences) {
         val json = sharedPreferences.getString(historyKey, null)
         if (!json.isNullOrEmpty()) {
             val type = object : TypeToken<ArrayList<Track>>() {}.type
-            historyList = gson.fromJson(json, type)
+            historyList = gson.fromJson(json, type) ?: mutableListOf()
         }
     }
 

@@ -39,16 +39,16 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var clearHistoryButton: MaterialButton
     private lateinit var historyAdapter: TrackAdapter
-
+    private lateinit var searchHistory: SearchHistory
     private var lastSearchQuery: String = ""
 
 
-    private val searchHistory by lazy { (application as App).searchHistory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+            val sharedPreferences = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            searchHistory = SearchHistory(sharedPreferences)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -222,19 +222,14 @@ class SearchActivity : AppCompatActivity() {
 
     private fun updateHistoryUI() {
         val query = searchEditText.text.toString().trim()
-
-
         if (query.isEmpty()) {
             val history = searchHistory.getHistory()
             if (history.isNotEmpty()) {
                 historyTitle.visibility = View.VISIBLE
                 historyRecyclerView.visibility = View.VISIBLE
                 clearHistoryButton.visibility = View.VISIBLE
-
                 historyAdapter.updateTracks(history)
-
-
-                hideAllViews()
+                hideAllViews() // Скрываем результаты/ошибки, чтобы не мешали
             } else {
                 hideHistoryUI()
                 hideAllViews()

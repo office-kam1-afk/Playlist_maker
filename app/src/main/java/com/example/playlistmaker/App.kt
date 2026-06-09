@@ -5,8 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
 class App : Application() {
-    lateinit var searchHistory: SearchHistory
-        private set
+
 
     override fun onCreate() {
         super.onCreate()
@@ -16,6 +15,6 @@ class App : Application() {
             if (isDarkThemeEnebled) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
-        searchHistory = SearchHistory(sharedPreferences)
+
     }
 }
