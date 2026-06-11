@@ -11,7 +11,9 @@
         <color name="gray_search_Pole">#FFFFFF</color>
         <color name="gray_light">#FFFFFF</color>
         <color name="gray_search">#1A1B22</color>
-
+        <color name="switch_color">#3772e7</color>
+        <color name="switch_color1">#5a6887</color>
+        <color name="ic_color">#FFFFFF</color>
         <color name="button_retry_bg">#ffffff</color>
         <color name="button_retry_text">#1A1B22</color>
         <color name="black">#1A1B22</color>
