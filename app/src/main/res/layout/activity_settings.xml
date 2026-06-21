@@ -23,13 +23,13 @@
             android:padding="1dp"
             android:background="?attr/colorSurface"
             app:tint="?attr/colorOnSurface"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="8dp"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/settings_title"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-medium"/>
@@ -45,9 +45,9 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingTop="32dp"
+        android:paddingTop="24dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/textView_theme_label"
@@ -65,8 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/dark_theme_switch_desc"
-            app:thumbTint="@color/gray_search"
-            app:trackTint="@color/gray_search_Pole" />
+            app:thumbTint="@color/switch_color"
+            app:trackTint="@color/switch_color1" />
 
     </LinearLayout>
 
@@ -98,7 +98,7 @@
             android:layout_height="24dp"
             android:contentDescription="@string/share_icon_desc"
             android:src="@drawable/ic_share"
-            app:tint="@color/gray_500" />
+            app:tint="@color/ic_color" />
 
     </LinearLayout>
 
@@ -130,7 +130,7 @@
             android:layout_height="24dp"
             android:contentDescription="@string/support_icon_desc"
             android:src="@drawable/ic_support"
-            app:tint="@color/gray_500" />
+            app:tint="@color/ic_color" />
 
     </LinearLayout>
 
@@ -162,7 +162,7 @@
             android:layout_height="24dp"
             android:contentDescription="@string/arrow_right_desc"
             android:src="@drawable/ic_arrow_right"
-            app:tint="@color/gray_500" />
+            app:tint="@color/ic_color" />
 
     </LinearLayout>
 

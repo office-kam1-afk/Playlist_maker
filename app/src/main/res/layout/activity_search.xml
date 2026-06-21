@@ -34,17 +34,17 @@
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
             android:hint="@string/search_hint"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:paddingEnd="48dp"
-            android:paddingBottom="12dp"
+            android:paddingBottom="16dp"
+            android:singleLine="true"
             android:textColor="@color/text_search"
             android:textColorHint="@color/gray_search"
-            android:textSize="16sp"
-            android:imeOptions="actionDone"
-            android:singleLine="true" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/clearButton"
@@ -58,7 +58,50 @@
             android:visibility="gone"
             app:tint="@color/gray_search" />
     </FrameLayout>
+    <!-- Заголовок истории -->
+    <TextView
+        android:id="@+id/historyTitle"
 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Вы искали"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    <!-- RecyclerView для истории поиска -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:visibility="gone" />
+
+    <!-- Кнопка очистки истории -->
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/clearHistoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:minHeight="56dp"
+        app:backgroundTint="@color/button_retry_bg"
+        android:textColor="@color/button_retry_text"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:text="Очистить историю"
+        app:cornerRadius="18dp"
+        app:iconTint="@color/button_icon_color"
+
+        android:visibility="gone" />
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -91,6 +134,7 @@
             android:src="@drawable/ic_music_empty"
 
              />
+
 
         <TextView
             android:layout_width="wrap_content"

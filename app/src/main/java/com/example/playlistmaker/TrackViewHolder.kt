@@ -19,10 +19,12 @@ class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(track: Track) {
         trackName.text = track.trackName
 
+        val totalSeconds = track.trackTimeMillis / 1000
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        val durationString = String.format("%02d:%02d",minutes, seconds)
 
-        val duration = SimpleDateFormat("mm:ss", Locale.getDefault())
-            .format(track.trackTimeMillis)
-        artistName.text = "${track.artistName} • $duration"
+        artistName.text = "${track.artistName} • $durationString"
 
         if (!track.artworkUrl100.isNullOrEmpty()) {
             Glide.with(itemView.context)

@@ -51,7 +51,10 @@ dependencies {
     // OkHttp (для логирования запросов, опционально, но полезно)
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
+    implementation("com.google.code.gson:gson:2.10.1")
+    
     // Glide без kapt (чтобы избежать конфликтов)
+
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 }
