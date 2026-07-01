@@ -1,12 +1,16 @@
 package com.example.playlistmaker
 
+import java.io.Serializable
+
 data class Track(
     val trackName: String,
     val trackId: Long,
     val artistName: String,
     val trackTimeMillis: Long,
-    val coverUrl: String? = null, // Знак ? и = null обязательны для Gson!
-    val duration: Int? = null,
-    val artworkUrl100: String?
-)
+    val artworkUrl100: String?,
+    val collectionName: String? = null,
+    val releaseDate: String? = null,
+    val primaryGenreName: String? = null,
+    val country: String? = null
+) : Serializable
 
