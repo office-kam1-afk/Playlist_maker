@@ -21,53 +21,58 @@
             app:navigationIconTint="?attr/colorOnSurface"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="-8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/track_cover"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintWidth_max="312dp" />
+             />
 
 
         <TextView
             android:id="@+id/track_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:textColor="?attr/colorOnSurface"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:paddingStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cover_image" />
 
 
         <TextView
             android:id="@+id/artist_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
             android:textColor="?attr/colorOnSurface"
             android:textSize="14sp"
-            android:alpha="0.6"
-            android:paddingStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/track_name" />
 
 
         <LinearLayout
             android:id="@+id/controls_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,18 +89,26 @@
                 android:src="@drawable/ic_playlist"
                 android:scaleType="fitXY"
                 app:tint="?attr/colorOnSurface" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/play_pause_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
+
                 android:background="@drawable/ic_play"
                 android:scaleType="fitXY"
                 android:contentDescription="Воспроизвести"
                 android:src="@drawable/ic_play"
                 app:tint="?attr/colorOnSurface" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
           <ImageView
                 android:id="@+id/favorite_button"
@@ -113,7 +126,7 @@
             android:id="@+id/progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="4dp"
             android:textColor="?attr/colorOnSurface"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,16 +138,20 @@
             android:id="@+id/info_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_text">
+            app:layout_constraintTop_toBottomOf="@id/progress_text"
+            app:layout_constraintVertical_bias="0.0">
 
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -145,10 +162,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:text="Длительность"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/ic_color"
                     android:textSize="13sp"
-                    android:alpha="0.6" />
+                   />
 
                 <TextView
                     android:id="@+id/duration_value"
@@ -174,9 +192,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Альбом"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/ic_color"
                     android:textSize="13sp"
-                    android:alpha="0.6" />
+                 />
 
                 <TextView
                     android:id="@+id/album_name"
@@ -201,9 +219,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Год"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/ic_color"
                     android:textSize="13sp"
-                    android:alpha="0.6" />
+                    />
 
                 <TextView
                     android:id="@+id/year_text"
@@ -227,9 +245,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Жанр"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/ic_color"
                     android:textSize="13sp"
-                    android:alpha="0.6" />
+                     />
 
                 <TextView
                     android:id="@+id/genre_text"
@@ -253,9 +271,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Страна"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/ic_color"
                     android:textSize="13sp"
-                    android:alpha="0.6" />
+                    />
 
                 <TextView
                     android:id="@+id/country_text"
