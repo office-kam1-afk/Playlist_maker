@@ -15,7 +15,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="54dp"
             android:background="?attr/colorSurface"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconTint="?attr/colorOnSurface"
@@ -25,11 +25,12 @@
             android:id="@+id/cover_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/track_cover"
             android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/RoundedCornerImage8dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +42,11 @@
             android:id="@+id/track_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="24dp"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +57,11 @@
             android:id="@+id/artist_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/track_name" />
@@ -70,9 +71,9 @@
             android:id="@+id/controls_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="24dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,8 +83,8 @@
 
             <ImageView
                 android:id="@+id/add_to_playlist"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Добавить в плейлист"
                 android:src="@drawable/ic_playlist"
@@ -96,8 +97,8 @@
 
             <ImageView
                 android:id="@+id/play_pause_button"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
 
                 android:background="@drawable/ic_play"
                 android:scaleType="fitXY"
@@ -112,8 +113,8 @@
 
           <ImageView
                 android:id="@+id/favorite_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:scaleType="fitXY"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="В избранное"
@@ -126,9 +127,9 @@
             android:id="@+id/progress_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="16dp"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="13sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/controls_layout" />
@@ -139,9 +140,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/duration_label"
@@ -165,7 +166,7 @@
 
                     android:text="Длительность"
                     android:textColor="@color/ic_color"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                    />
 
                 <TextView
@@ -175,7 +176,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     />
             </LinearLayout>
 
@@ -184,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/album_label"
@@ -193,7 +194,7 @@
                     android:layout_weight="1"
                     android:text="Альбом"
                     android:textColor="@color/ic_color"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                  />
 
                 <TextView
@@ -203,7 +204,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
 
@@ -211,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/year_label"
@@ -220,7 +221,7 @@
                     android:layout_weight="1"
                     android:text="Год"
                     android:textColor="@color/ic_color"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     />
 
                 <TextView
@@ -230,14 +231,14 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/genre_label"
@@ -246,7 +247,7 @@
                     android:layout_weight="1"
                     android:text="Жанр"
                     android:textColor="@color/ic_color"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                      />
 
                 <TextView
@@ -256,14 +257,14 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/country_label"
@@ -272,7 +273,7 @@
                     android:layout_weight="1"
                     android:text="Страна"
                     android:textColor="@color/ic_color"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     />
 
                 <TextView
@@ -282,7 +283,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
