@@ -19,7 +19,7 @@ class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(track: Track) {
         trackName.text = track.trackName
 
-        val totalSeconds = track.trackTimeMillis / 1000
+        val totalSeconds = (track.trackTimeMillis ?: 0L) / 1000
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60
         val durationString = String.format("%02d:%02d",minutes, seconds)
