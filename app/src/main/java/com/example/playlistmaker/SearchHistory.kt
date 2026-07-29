@@ -1,49 +1,47 @@
 package com.example.playlistmaker
+
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 
-class SearchHistory (private val sharedPreferences: SharedPreferences) {
-    private val gson = Gson()
-    private val historyKey = "search_history_key"
-    private val maxHistorySize = 10
+class SearchHistory(private val sharedPreferences: SharedPreferences) {
+    private val KEY_HISTORY = "search_history"
+    private val MAX_HISTORY_SIZE = 10
 
-    private var historyList = mutableListOf<Track>()
+    fun addTrack(track: Track) {
 
-    init {
-        loadHistory()
-    }
-    fun addTrack(track:Track) {
+        val history = getHistory().toMutableList()
 
-        historyList.removeAll { it.trackId == track.trackId }
+        history.removeAll { it.trackName == track.trackName && it.artistName == track.artistName }
 
-        historyList.add(0, track)
+        history.add(0, track)
 
-
-        if (historyList.size > maxHistorySize) {
-            historyList.removeAt(historyList.lastIndex)
+        if (history.size > MAX_HISTORY_SIZE) {
+            history.removeAt(MAX_HISTORY_SIZE)
         }
-        saveHistory()
+
+        saveHistory(history)
     }
+
     fun getHistory(): List<Track> {
-        return historyList.toList()
-    }
-    fun clearHistory() {
-        historyList.clear()
-        saveHistory()
-    }
-    private fun loadHistory() {
-        val json = sharedPreferences.getString(historyKey, null)
-        if (!json.isNullOrEmpty()) {
-            val type = object : TypeToken<ArrayList<Track>>() {}.type
-            historyList = gson.fromJson(json, type) ?: mutableListOf()
+         return try {
+            val json = sharedPreferences.getString(KEY_HISTORY, "[]")
+            val type = object : TypeToken<List<Track>>() {}.type
+            Gson().fromJson(json, type) ?: emptyList()
+        } catch (e: JsonSyntaxException) {
+            e.printStackTrace()
+            clearHistory()
+            emptyList()
         }
     }
 
-    private fun saveHistory() {
-        val json = gson.toJson(historyList)
-        sharedPreferences.edit().putString(historyKey, json).apply()
+    fun clearHistory() {
+        saveHistory(emptyList())
+    }
+
+    private fun saveHistory(history: List<Track>) {
+        val json = Gson().toJson(history)
+        sharedPreferences.edit().putString(KEY_HISTORY, json).apply()
     }
 }
-
-

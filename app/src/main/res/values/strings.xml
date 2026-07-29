@@ -33,6 +33,7 @@
     <string name="dark_theme_switch_desc">Включить или выключить тёмную тему</string>
     <string name="support_icon_desc">Поддержка</string>
     <string name="support">Поддержка</string>
+    <string name="loading">Загрузка...</string>
     <string name="support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="arrow_right_desc">Перейти</string>

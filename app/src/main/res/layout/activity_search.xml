@@ -58,6 +58,16 @@
             android:visibility="gone"
             app:tint="@color/gray_search" />
     </FrameLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_bar_circular"
+        android:visibility="gone"
+        android:contentDescription="@string/loading" />
     <!-- Заголовок истории -->
     <TextView
         android:id="@+id/historyTitle"
@@ -102,12 +112,7 @@
         app:iconTint="@color/button_icon_color"
 
         android:visibility="gone" />
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
