@@ -1,19 +1,20 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.settings
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-
-import com.google.android.material.switchmaterial.SwitchMaterial
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import com.example.playlistmaker.R
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: android.content.SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var switchDarkTheme: SwitchMaterial
 
     companion object {
@@ -64,7 +65,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun writeToSupport() {
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-            data = "mailto:".toUri()
+         data = "mailto:".toUri()
             putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
             putExtra(Intent.EXTRA_SUBJECT, getString(R.string.support_subject))
             putExtra(Intent.EXTRA_TEXT, getString(R.string.support_body))

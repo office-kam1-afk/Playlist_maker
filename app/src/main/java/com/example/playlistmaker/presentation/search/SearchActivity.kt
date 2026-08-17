@@ -1,10 +1,11 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.search
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -17,6 +18,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.presentation.search.TrackAdapter
+import com.example.playlistmaker.presentation.model.TrackUiModel
+import com.example.playlistmaker.presentation.model.toUiModel
+import com.example.playlistmaker.presentation.player.PlayerActivity
+import com.example.playlistmaker.R
+import com.example.playlistmaker.SearchHistory
+import com.example.playlistmaker.data.network.RetrofitNetworkClient
+import com.example.playlistmaker.domain.entity.Track
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        val sharedPreferences = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("app_settings", MODE_PRIVATE)
         searchHistory = SearchHistory(sharedPreferences)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -84,24 +93,51 @@ class SearchActivity : AppCompatActivity() {
         historyAdapter = TrackAdapter(emptyList())
         historyRecyclerView.adapter = historyAdapter
 
-        trackAdapter.onTrackClick = { track ->
+        // ИСПРАВЛЕНО: параметр лямбды теперь 'uiTrack'
+        trackAdapter.onTrackClick = { uiTrack ->
             if (isClickValid()) {
-                searchHistory.addTrack(track)
+                val domainTrack = Track(
+                    trackId = uiTrack.trackId,
+                    trackName = uiTrack.trackName,
+                    artistName = uiTrack.artistName,
+                    trackTimeMillis = uiTrack.trackTimeMillis,
+                    artworkUrl100 = uiTrack.artworkUrl100,
+                    collectionName = uiTrack.collectionName,
+                    releaseDate = uiTrack.releaseDate,
+                    primaryGenreName = uiTrack.primaryGenreName,
+                    country = uiTrack.country,
+                    previewUrl = uiTrack.previewUrl
+                )
+
+                searchHistory.addTrack(domainTrack)
                 updateHistoryUI()
                 val intent = Intent(this@SearchActivity, PlayerActivity::class.java).apply {
-                    putExtra("track", track)
+                    putExtra("track", domainTrack)
                 }
                 startActivity(intent)
             }
         }
 
-        historyAdapter.onTrackClick = { track ->
+        historyAdapter.onTrackClick = { uiTrack ->
             if (isClickValid()) {
-                searchHistory.addTrack(track)
+                val domainTrack = Track(
+                    trackId = uiTrack.trackId,
+                    trackName = uiTrack.trackName,
+                    artistName = uiTrack.artistName,
+                    trackTimeMillis = uiTrack.trackTimeMillis,
+                    artworkUrl100 = uiTrack.artworkUrl100,
+                    collectionName = uiTrack.collectionName,
+                    releaseDate = uiTrack.releaseDate,
+                    primaryGenreName = uiTrack.primaryGenreName,
+                    country = uiTrack.country,
+                    previewUrl = uiTrack.previewUrl
+                )
+
+                searchHistory.addTrack(domainTrack)
                 updateHistoryUI()
 
                 val intent = Intent(this@SearchActivity, PlayerActivity::class.java).apply {
-                    putExtra("track", track)
+                    putExtra("track", domainTrack)
                 }
                 startActivity(intent)
             }
@@ -112,18 +148,18 @@ class SearchActivity : AppCompatActivity() {
             updateHistoryUI()
         }
 
-        searchEditText.addTextChangedListener(object : android.text.TextWatcher {
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = s?.toString()?.trim() ?: ""
                 clearButton.visibility = if (query.isEmpty()) View.GONE else View.VISIBLE
 
-              debounceRunnable?.let { handler.removeCallbacks(it) }
+                debounceRunnable?.let { handler.removeCallbacks(it) }
 
                 if (query.isNotEmpty()) {
                     hideHistoryUI()
-                   debounceRunnable = Runnable {
+                    debounceRunnable = Runnable {
                         performSearch(query)
                     }
                     handler.postDelayed(debounceRunnable!!, 2000)
@@ -132,7 +168,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(s: android.text.Editable?) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         clearButton.setOnClickListener {
@@ -154,15 +190,16 @@ class SearchActivity : AppCompatActivity() {
                 true
             } else false
         }
-       searchEditText.post {
+
+        searchEditText.post {
             searchEditText.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
             updateHistoryUI()
         }
     }
 
-        private fun isClickValid(): Boolean {
+    private fun isClickValid(): Boolean {
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastClickTime < minClickInterval) {
             return false
@@ -179,14 +216,37 @@ class SearchActivity : AppCompatActivity() {
 
         searchJob = lifecycleScope.launch {
             try {
-                val response = withContext(Dispatchers.IO) {
-                    NetworkClient.api.search(query)
+                // ИСПРАВЛЕНО: добавлены 's' в конце имен переменных (domainTracks, uiModels)
+                val domainTracks: List<Track> = withContext(Dispatchers.IO) {
+                    //searchTracksUseCase(query)
+                    //emptyList()
+                    try {
+                        val response = RetrofitNetworkClient.api.search(query)
+                        response.results.map { dto ->
+                            Track(
+                                trackId = dto.trackId,
+                                trackName = dto.trackName,
+                                artistName = dto.artistName,
+                                trackTimeMillis = dto.trackTimeMillis,
+                                artworkUrl100 = dto.artworkUrl100,
+                                collectionName = dto.collectionName,
+                                releaseDate = dto.releaseDate,
+                                primaryGenreName = dto.primaryGenreName,
+                                country = dto.country,
+                                previewUrl = dto.previewUrl
+                            )
+                        }
+                    } catch (e: Exception) {
+                        emptyList()
+                    }
                 }
+                 val uiModels: List<TrackUiModel> = domainTracks.map { it.toUiModel() }
+
                 withContext(Dispatchers.Main) {
-                    if (response.resultCount > 0) {
-                        showResults(response.results)
-                    } else {
+                    if (uiModels.isEmpty()) {
                         showEmptyState()
+                    } else {
+                        showResults(uiModels)
                     }
                 }
             } catch (e: CancellationException) {
@@ -200,14 +260,13 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        hideKeyboard()
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
         emptyPlaceholder.visibility = View.GONE
         errorPlaceholder.visibility = View.GONE
     }
 
-    private fun showResults(tracks: List<Track>) {
+    private fun showResults(tracks: List<TrackUiModel>) {
         progressBar.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
         emptyPlaceholder.visibility = View.GONE
@@ -254,7 +313,8 @@ class SearchActivity : AppCompatActivity() {
                 historyTitle.visibility = View.VISIBLE
                 historyRecyclerView.visibility = View.VISIBLE
                 clearHistoryButton.visibility = View.VISIBLE
-                historyAdapter.updateTracks(history)
+                val historyUiModels = history.map {it.toUiModel()}
+                historyAdapter.updateTracks(historyUiModels)
                 hideAllViews()
             } else {
                 hideHistoryUI()
@@ -272,7 +332,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         searchEditText.clearFocus()
     }

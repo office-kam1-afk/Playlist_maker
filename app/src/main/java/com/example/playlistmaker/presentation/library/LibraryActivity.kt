@@ -1,9 +1,11 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.library
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
+import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.playlistmaker.R
+import com.example.playlistmaker.presentation.settings.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LibraryActivity : AppCompatActivity() {

@@ -13,22 +13,22 @@
         android:name=".App"
         android:theme="@style/Theme.PlaylistMaker">
 
-       <activity android:name=".PlayerActivity"
+       <activity android:name=".presentation.player.PlayerActivity"
            android:exported="false" />
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".presentation.settings.SettingsActivity"
             android:exported="false"/>
 
-        <activity android:name=".LibraryActivity"
+        <activity android:name=".presentation.library.LibraryActivity"
             android:exported="false" />
-        <activity android:name=".UserAgreementActivity"
+        <activity android:name=".presentation.useragreement.UserAgreementActivity"
                   android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
 
             <intent-filter>
