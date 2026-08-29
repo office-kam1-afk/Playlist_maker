@@ -18,7 +18,13 @@ class PreferencesDataSource(private val sharedPreferences: SharedPreferences) {
     fun saveHistory(history: List<TrackDto>){
         sharedPreferences.edit().putString(historyKey, gson.toJson(history)).apply()
     }
-    fun getTheme(): Boolean = sharedPreferences.getBoolean(themeKey, false)
-    fun setTheme(isDark: Boolean) = sharedPreferences.edit().putBoolean(themeKey, isDark).apply()
+    fun getTheme(): Boolean {
+        return sharedPreferences.getBoolean(themeKey, false)
+    }
+    fun setTheme(isDark: Boolean) {
+        sharedPreferences.edit()
+            .putBoolean(themeKey, isDark)
+            .apply()
+    }
 }
 
