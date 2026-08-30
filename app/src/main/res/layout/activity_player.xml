@@ -99,10 +99,9 @@
                 android:id="@+id/play_pause_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-
-                android:background="@drawable/ic_play"
-                android:scaleType="fitXY"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Воспроизвести"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_play"
                 app:tint="?attr/colorOnSurface" />
 
