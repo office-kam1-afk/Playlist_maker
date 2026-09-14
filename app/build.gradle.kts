@@ -51,7 +51,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.1")
     // OkHttp (для логирования запросов, опционально, но полезно)
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("com.google.code.gson:gson:2.10.1")
     
     // Glide без kapt (чтобы избежать конфликтов)
