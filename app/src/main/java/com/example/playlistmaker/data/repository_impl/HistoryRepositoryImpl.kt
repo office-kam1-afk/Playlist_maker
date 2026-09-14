@@ -9,16 +9,7 @@ import com.example.playlistmaker.domain.repository.HistoryRepository
 class HistoryRepositoryImpl(
     private val prefs: PreferencesDataSource
 ) : HistoryRepository {
-
-    override fun getHistory(): List<Track> {
-        return prefs.getHistory().map { it.toDomain() }
-    }
-
-    override fun saveHistory(history: List<Track>) {
-        prefs.saveHistory(history.map { it.toDto() })
-    }
-
-    override fun clearHistory() {
-        prefs.saveHistory(emptyList())
-    }
+    override fun getHistory(): List<Track> = prefs.getHistory().map { it.toDomain() }
+    override fun saveHistory(history: List<Track>) = prefs.saveHistory(history.map { it.toDto() })
+    override fun clearHistory() = prefs.saveHistory(emptyList())
 }
