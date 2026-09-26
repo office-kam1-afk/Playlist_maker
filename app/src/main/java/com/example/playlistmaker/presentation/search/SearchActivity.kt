@@ -8,20 +8,27 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.App
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.entity.Track
 import com.example.playlistmaker.presentation.player.PlayerActivity
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: SearchViewModel
+    // Внедряем ViewModel через Koin
+    private val viewModel: SearchViewModel by viewModel()
+
     private lateinit var historyAdapter: TrackAdapter
     private lateinit var searchAdapter: TrackAdapter
+    private var searchJob: Job? = null
 
     private lateinit var searchEditText: EditText
     private lateinit var clearButton: ImageView
@@ -38,9 +45,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        val factory = (application as App).viewModelFactory
-        viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
-
         initViews()
         initToolbar()
         initAdapters()
@@ -52,7 +56,9 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (searchEditText.text.toString().trim().isEmpty()) viewModel.showHistory()
+        if (searchEditText.text.toString().trim().isEmpty()) {
+            viewModel.showHistory()
+        }
     }
 
     private fun initViews() {
@@ -73,16 +79,22 @@ class SearchActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
-        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun initAdapters() {
         historyRecyclerView.layoutManager = LinearLayoutManager(this)
-        historyAdapter = TrackAdapter { onTrackClicked(it) }
+        historyAdapter = TrackAdapter { track ->
+            onTrackClicked(track)
+        }
         historyRecyclerView.adapter = historyAdapter
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        searchAdapter = TrackAdapter { onTrackClicked(it) }
+        searchAdapter = TrackAdapter { track ->
+            onTrackClicked(track)
+        }
         recyclerView.adapter = searchAdapter
     }
 
@@ -90,15 +102,36 @@ class SearchActivity : AppCompatActivity() {
         searchEditText.doAfterTextChanged { editable ->
             val query = editable?.toString().orEmpty()
             clearButton.visibility = if (query.trim().isNotEmpty()) View.VISIBLE else View.GONE
-            viewModel.onSearchQueryChanged(query)
+            searchJob?.cancel()
+            if (query.isEmpty()) {
+                viewModel.showHistory()
+            } else {
+                searchJob = lifecycleScope.launch {
+                    delay(SEARCH_DELAY_MS)
+                    viewModel.onSearchQueryChanged(query)
+                }
+            }
         }
+
         clearButton.setOnClickListener {
             searchEditText.text.clear()
             searchEditText.clearFocus()
             hideKeyboard()
         }
-        clearHistoryButton.setOnClickListener { viewModel.onClearHistoryClicked() }
-        retryButton.setOnClickListener { viewModel.onRetryClicked(searchEditText.text.toString().trim()) }
+
+        clearHistoryButton.setOnClickListener {
+            viewModel.onClearHistoryClicked()
+        }
+
+        retryButton.setOnClickListener {
+            val query = searchEditText.text.toString().trim()
+            if (query.isNotEmpty()) {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    viewModel.onSearchQueryChanged(query)
+                }
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -139,7 +172,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+    }
+
+    companion object {
+        private const val SEARCH_DELAY_MS = 500L
     }
 }

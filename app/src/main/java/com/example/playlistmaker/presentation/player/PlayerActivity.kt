@@ -9,22 +9,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.playlistmaker.App
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.entity.Track
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
 
 class PlayerActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: PlayerViewModel
+    private val viewModel: PlayerViewModel by viewModel()
+
     private lateinit var playPauseButton: ImageView
     private lateinit var progressText: TextView
-    private lateinit var coverImage: ImageView
+
+       private lateinit var coverImage: ImageView
     private lateinit var trackNameText: TextView
     private lateinit var artistNameText: TextView
     private lateinit var durationValue: TextView
@@ -41,8 +44,6 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
 
-        val factory = (application as App).viewModelFactory
-        viewModel = ViewModelProvider(this, factory)[PlayerViewModel::class.java]
 
         initViews()
         initToolbar()
@@ -131,7 +132,9 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.pauseForLifecycle()
+        lifecycleScope.launch {
+            viewModel.pauseForLifecycle()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

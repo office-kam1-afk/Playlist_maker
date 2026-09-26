@@ -54,7 +54,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("com.google.code.gson:gson:2.10.1")
-    
+    implementation("io.insert-koin:koin-android:3.3.0")
     // Glide без kapt (чтобы избежать конфликтов)
 
     implementation("com.github.bumptech.glide:glide:4.15.1")
