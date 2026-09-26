@@ -1,43 +1,35 @@
 package com.example.playlistmaker
 
 import android.app.Application
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.data.prefs.PreferencesDataSource
-import com.example.playlistmaker.data.repository_impl.HistoryRepositoryImpl
-import com.example.playlistmaker.data.repository_impl.SearchRepositoryImpl
-import com.example.playlistmaker.data.repository_impl.SettingsRepositoryImpl
-import com.example.playlistmaker.di.ViewModelFactory
-import com.example.playlistmaker.domain.interactor.HistoryInteractorImpl
-import com.example.playlistmaker.domain.interactor.SearchInteractorImpl
-import com.example.playlistmaker.domain.interactor.SettingsInteractorImpl
+import com.example.playlistmaker.di.dataModule
+import com.example.playlistmaker.di.interactorModule
+import com.example.playlistmaker.di.repositoryModule
+import com.example.playlistmaker.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class App : Application() {
 
-        lateinit var viewModelFactory: ViewModelFactory
-        private set
-
     override fun onCreate() {
         super.onCreate()
+                startKoin {
+            androidContext(this@App)
+            modules(
+                dataModule,
+                repositoryModule,
+                interactorModule,
+                viewModelModule
+            )
+        }
 
-       val prefs = PreferencesDataSource(
-            getSharedPreferences("app_settings", Context.MODE_PRIVATE)
-        )
-
-       val searchRepository = SearchRepositoryImpl()
-        val historyRepository = HistoryRepositoryImpl(prefs)
-        val settingsRepository = SettingsRepositoryImpl(prefs)
-
-            val searchInteractor = SearchInteractorImpl(searchRepository)
-        val historyInteractor = HistoryInteractorImpl(historyRepository)
-        val settingsInteractor = SettingsInteractorImpl(settingsRepository)
-
-          viewModelFactory = ViewModelFactory(searchInteractor, historyInteractor, settingsInteractor)
-
+               val settingsInteractor = org.koin.java.KoinJavaComponent.getKoin()
+            .get<com.example.playlistmaker.domain.interactor.SettingsInteractor>()
 
         val isDark = settingsInteractor.getTheme()
         AppCompatDelegate.setDefaultNightMode(
-            if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            if (isDark) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
         )
     }
 }
