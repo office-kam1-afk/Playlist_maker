@@ -1,92 +1,64 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="?attr/colorSurface">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Медиатека"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnSurface"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp">
 
-        android:layout_marginBottom="24dp">
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Назад"
+            android:padding="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="?attr/colorOnSurface"
+            android:layout_marginEnd="8dp"/>
 
         <TextView
-            android:id="@+id/tab_selected"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="16sp"
-            android:text="Избраные треки"
+            android:text="Медиатека"
+            android:textSize="25sp"
             android:textColor="?attr/colorOnSurface"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="12dp" />
-        
-        <TextView
-            android:id="@+id/tab_playlist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:text="Плайлист"
-            android:textColor="?attr/colorOnSurface"
-            android:gravity="center"
-            android:padding="12dp" />
-    
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-medium"/>
     </LinearLayout>
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/colorOnSurface"
-        android:alpha="0.1"
-        android:layout_marginBottom="24dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_music_empty"
-        android:layout_marginBottom="16dp"
-        app:tint="?attr/colorOnSurface"
-        android:alpha="0.5"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/media_empty"
-        android:textSize="16sp"
-        android:textColor="?attr/colorOnSurface"/>
-
-</LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
-        app:itemIconTint="?attr/colorOnSurface"
-        app:itemTextColor="?attr/colorOnSurface"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:tabTextColor="?attr/colorOnSurface"
+        app:tabSelectedTextColor="?attr/colorOnSurface"
+        app:tabIndicatorColor="?attr/colorOnSurface"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabTextAppearance="@style/CustomTabTextAppearance"
+        app:tabInlineLabel="true"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingEnd="0dp"/>
+
+       <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>
