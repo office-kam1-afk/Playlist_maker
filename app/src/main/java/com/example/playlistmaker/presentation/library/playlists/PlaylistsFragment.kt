@@ -11,8 +11,16 @@ import com.google.android.material.button.MaterialButton
 
 class PlaylistsFragment : Fragment() {
 
+    companion object{
+        fun newInstance(): PlaylistsFragment {
+            return PlaylistsFragment()
+        }
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_playlists, container, false)
     }
@@ -20,8 +28,8 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<MaterialButton>(R.id.newPlaylistButton).setOnClickListener {
-            Toast.makeText(requireContext(), "Создание плейлиста", Toast.LENGTH_SHORT).show()
+        view.findViewById<MaterialButton>(R.id.newPlaylistButton)?.setOnClickListener {
+            Toast.makeText(requireContext(), R.string.new_playlist, Toast.LENGTH_SHORT).show()
         }
     }
 }

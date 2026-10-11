@@ -9,11 +9,12 @@
         android:id="@+id/newPlaylistButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Новый плейлист"
+        android:layout_marginTop="24dp"
+        android:text="@string/new_playlist"
         android:textAllCaps="false"
-        app:backgroundTint="@android:color/black"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorSurface"
+        android:textSize="14sp"
+        app:backgroundTint="?attr/colorOnSurface"
         app:cornerRadius="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,10 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Вы не создали \n ни одного плейлиста"
+            android:text="@string/playlists_empty"
             android:gravity="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
