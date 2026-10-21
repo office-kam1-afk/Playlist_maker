@@ -6,16 +6,16 @@
     android:background="?attr/colorSurface"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="?attr/colorSurface"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:navigationIconTint="?attr/colorOnSurface"
-        app:title="@string/search"
-        app:titleTextColor="?attr/colorOnSurface" />
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:textSize="22sp"
+        android:textColor="?attr/colorOnSurface"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -58,6 +58,8 @@
             android:visibility="gone"
             app:tint="@color/gray_search" />
     </FrameLayout>
+
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="44dp"
@@ -68,22 +70,22 @@
         android:indeterminateDrawable="@drawable/progress_bar_circular"
         android:visibility="gone"
         android:contentDescription="@string/loading" />
-    <!-- Заголовок истории -->
+
     <TextView
         android:id="@+id/historyTitle"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:text="Вы искали"
+        android:text="@string/you_searched"
         android:textColor="?attr/colorOnSurface"
         android:textSize="19sp"
         android:textStyle="bold"
         android:visibility="gone" />
-    <!-- RecyclerView для истории поиска -->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyRecyclerView"
         android:layout_width="match_parent"
@@ -94,9 +96,7 @@
         android:paddingBottom="8dp"
         android:visibility="gone" />
 
-    <!-- Кнопка очистки истории -->
     <com.google.android.material.button.MaterialButton
-
         android:id="@+id/clearHistoryButton"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
@@ -107,10 +107,9 @@
         android:textAllCaps="false"
         android:textSize="14sp"
         android:layout_gravity="center_horizontal"
-        android:text="Очистить историю"
+        android:text="@string/clear_history"
         app:cornerRadius="18dp"
         app:iconTint="@color/button_icon_color"
-
         android:visibility="gone" />
 
 
@@ -123,6 +122,7 @@
         android:paddingBottom="16dp"
         android:visibility="gone" />
 
+
     <LinearLayout
         android:id="@+id/emptyPlaceholder"
         android:layout_width="match_parent"
@@ -131,16 +131,10 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
-
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:alpha="1"
-            android:src="@drawable/ic_music_empty"
-
-             />
-
-
+            android:src="@drawable/ic_music_empty" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,6 +144,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/errorPlaceholder"
         android:layout_width="match_parent"
@@ -158,25 +153,18 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
-
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:alpha="1"
-            android:src="@drawable/light_mode"
-            />
-
+            android:src="@drawable/light_mode" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-
             android:text="@string/loader_message"
-
             android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/retryButton"
             android:layout_width="wrap_content"
@@ -188,9 +176,7 @@
             android:textSize="18sp"
             android:text="@string/search_retry_button"
             app:cornerRadius="@dimen/button_corner_radius"
-            app:iconTint="@color/button_icon_color"
-            />
-
+            app:iconTint="@color/button_icon_color" />
     </LinearLayout>
 
 </LinearLayout>
