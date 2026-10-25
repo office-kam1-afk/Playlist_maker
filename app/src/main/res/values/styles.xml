@@ -18,6 +18,7 @@
         <item name="cornerRadius">16dp</item>
         <item name="iconPadding">16dp</item>
         <item name="iconTint">@color/button_icon_color</item>
+
         <item name="android:stateListAnimator">@null</item>
 
     </style>

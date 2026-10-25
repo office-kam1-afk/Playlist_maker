@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/library"
         android:textColor="?attr/colorOnSurface"
+        android:textSize="22sp"
         android:fontFamily="sans-serif-medium"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
