@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/libraryFragment">
+
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.example.playlistmaker.presentation.library.LibraryFragment"
+        android:label="Library"
+        tools:layout="@layout/fragment_library" />
+
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.playlistmaker.presentation.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.playlistmaker.presentation.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+       <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.example.playlistmaker.presentation.player.PlayerFragment"
+        android:label="Player"
+        tools:layout="@layout/fragment_player">
+
+        <argument
+            android:name="trackId"
+            app:argType="long" />
+        <argument
+            android:name="trackName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="artistName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="trackTimeMillis"
+            app:argType="long" />
+        <argument
+            android:name="artworkUrl100"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="collectionName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="releaseDate"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="primaryGenreName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="country"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="previewUrl"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+</navigation>

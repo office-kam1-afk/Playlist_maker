@@ -5,36 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorSurface">
-    <LinearLayout
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="0dp"
-        android:paddingEnd="16dp"
+        android:text="@string/settings_title"
+        android:textSize="22sp"
+        android:textColor="?attr/colorOnSurface"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_arrow_back"
-            android:contentDescription="@string/back"
-            android:padding="1dp"
-            android:background="?attr/colorSurface"
-            app:tint="?attr/colorOnSurface"
-            android:layout_marginEnd="8dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/settings_title"
-            android:textSize="22sp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginStart="8dp"
-            android:fontFamily="sans-serif-medium"/>
-
-    </LinearLayout>
+        android:paddingBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,12 +32,10 @@
         android:paddingBottom="24dp">
 
         <TextView
-            android:id="@+id/textView_theme_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-
             android:text="@string/dark_theme"
             android:textColor="?attr/colorOnSurface"
             android:textSize="16sp" />
@@ -67,7 +47,6 @@
             android:contentDescription="@string/dark_theme_switch_desc"
             app:thumbTint="@color/switch_color"
             app:trackTint="@color/switch_color1" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -99,7 +78,6 @@
             android:contentDescription="@string/share_icon_desc"
             android:src="@drawable/ic_share"
             app:tint="@color/ic_color" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -131,7 +109,6 @@
             android:contentDescription="@string/support_icon_desc"
             android:src="@drawable/ic_support"
             app:tint="@color/ic_color" />
-
     </LinearLayout>
 
 
@@ -163,8 +140,6 @@
             android:contentDescription="@string/arrow_right_desc"
             android:src="@drawable/ic_arrow_right"
             app:tint="@color/ic_color" />
-
     </LinearLayout>
-
 
 </LinearLayout>
