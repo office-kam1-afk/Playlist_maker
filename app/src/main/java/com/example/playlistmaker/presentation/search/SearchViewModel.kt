@@ -10,6 +10,7 @@ import com.example.playlistmaker.domain.interactor.SearchInteractor
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -21,6 +22,12 @@ class SearchViewModel(
     val screenState: LiveData<SearchScreenState> = _screenState
 
     private var searchJob: Job? = null
+    private var clickJob: Job? = null
+
+    companion object {
+        private const val SEARCH_DEBOUNCE_MS = 500L
+        private const val CLICK_DEBOUNCE_MS = 1000L
+    }
 
     fun onSearchQueryChanged(query: String) {
         val trimmed = query.trim()
@@ -29,19 +36,22 @@ class SearchViewModel(
             showHistory()
             return
         }
-
-        searchJob?.cancel()
+       searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(500L) // Debounce
+            delay(SEARCH_DEBOUNCE_MS) // Debounce
             _screenState.value = SearchScreenState.Loading
+
             try {
-                val results = searchInteractor.searchTracks(trimmed)
-                if (results.isEmpty()) _screenState.value = SearchScreenState.Empty
-                else _screenState.value = SearchScreenState.Content(results)
+                searchInteractor.searchTracks(trimmed)
+                    .catch { e ->
+                 _screenState.value = SearchScreenState.Error
+                    }
+                    .collect { tracks ->
+                        if (tracks.isEmpty()) _screenState.value = SearchScreenState.Empty
+                        else _screenState.value = SearchScreenState.Content(tracks)
+                    }
             } catch (e: CancellationException) {
                 throw e
-            } catch (e: Exception) {
-                _screenState.value = SearchScreenState.Error
             }
         }
     }
@@ -51,11 +61,18 @@ class SearchViewModel(
         _screenState.value = if (history.isEmpty()) SearchScreenState.Default
         else SearchScreenState.History(history)
     }
+        fun onTrackClicked(track: Track) {
+        if (clickJob?.isActive == true) return
+        historyInteractor.addToHistory(track)
 
-    fun onTrackClicked(track: Track) = historyInteractor.addToHistory(track)
+        clickJob = viewModelScope.launch {
+            delay(CLICK_DEBOUNCE_MS)
+            clickJob = null
+        }
+    }
+
     fun onClearHistoryClicked() {
         historyInteractor.clearHistory()
         showHistory()
     }
-    fun onRetryClicked(query: String) = onSearchQueryChanged(query)
 }
