@@ -76,7 +76,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun initListeners() {
-
         searchEditText.doAfterTextChanged { editable ->
             val query = editable?.toString().orEmpty()
             clearButton.visibility = if (query.trim().isNotEmpty()) View.VISIBLE else View.GONE
@@ -133,9 +132,8 @@ class SearchFragment : Fragment() {
         clearHistoryButton.visibility = View.GONE
     }
 
-    private fun onTrackClicked(track: Track) {
-        viewModel.onTrackClicked(track)
-
+            private fun onTrackClicked(track: Track) {
+               if (!viewModel.onTrackClicked(track)) return
         val bundle = Bundle().apply {
             putLong("trackId", track.trackId ?: 0L)
             putString("trackName", track.trackName)
