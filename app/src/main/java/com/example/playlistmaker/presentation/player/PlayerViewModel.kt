@@ -1,17 +1,18 @@
 package com.example.playlistmaker.presentation.player
 
 import android.media.MediaPlayer
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.domain.entity.Track
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class PlayerViewModel : ViewModel() {
-
     private val _screenState = MutableLiveData(PlayerScreenState())
     val screenState: LiveData<PlayerScreenState> = _screenState
 
@@ -19,19 +20,7 @@ class PlayerViewModel : ViewModel() {
     private var isPrepared = false
     private var currentPosition = 0
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val progressRunnable = object : Runnable {
-        override fun run() {
-            val mp = mediaPlayer ?: return
-            val state = _screenState.value ?: return
-            if (state.isPlaying && isPrepared) {
-                val pos = mp.currentPosition
-                val progress = String.format(Locale.getDefault(), "%02d:%02d", pos / 60000, (pos % 60000) / 1000)
-                _screenState.value = state.copy(progressText = progress)
-                handler.postDelayed(this, 500L)
-            }
-        }
-    }
+        private var progressJob: Job? = null
 
     fun initTrack(track: Track) {
         _screenState.value = PlayerScreenState(track = track, isTrackLoaded = true)
@@ -105,18 +94,29 @@ class PlayerViewModel : ViewModel() {
             runCatching { mp.release() }
         }
         mediaPlayer = null
-        _screenState.value = (_screenState.value ?: return).copy(isPlaying = false, progressText = "00:00")
+             _screenState.value = (_screenState.value ?: return).copy(isPlaying = false, progressText = "00:00")
     }
 
-    private fun startProgressUpdates() {
-        handler.removeCallbacks(progressRunnable)
-        handler.post(progressRunnable)
+      private fun startProgressUpdates() {
+        progressJob?.cancel()
+        progressJob = viewModelScope.launch {
+            while (_screenState.value?.isPlaying == true) {
+                delay(300L)
+                val mp = mediaPlayer ?: break
+                val pos = mp.currentPosition
+                val progress = String.format(Locale.getDefault(), "%02d:%02d", pos / 60000, (pos % 60000) / 1000)
+                _screenState.value = _screenState.value?.copy(progressText = progress)
+            }
+        }
     }
 
-    private fun stopProgressUpdates() { handler.removeCallbacks(progressRunnable) }
+    private fun stopProgressUpdates() {
+        progressJob?.cancel()
+    }
 
     override fun onCleared() {
         super.onCleared()
+        progressJob?.cancel()
         stopPlayback()
     }
 }

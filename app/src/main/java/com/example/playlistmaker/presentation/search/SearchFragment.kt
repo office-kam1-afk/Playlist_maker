@@ -9,23 +9,21 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.entity.Track
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
+
     private val viewModel: SearchViewModel by viewModel()
+
     private lateinit var historyAdapter: TrackAdapter
     private lateinit var searchAdapter: TrackAdapter
-    private var searchJob: Job? = null
+
     private lateinit var searchEditText: EditText
     private lateinit var clearButton: ImageView
     private lateinit var progressBar: View
@@ -44,6 +42,7 @@ class SearchFragment : Fragment() {
     ): View {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
@@ -51,9 +50,10 @@ class SearchFragment : Fragment() {
         initListeners()
         observeViewModel()
         viewModel.showHistory()
-}
+    }
+
     private fun initViews(view: View) {
-    searchEditText = view.findViewById(R.id.searchEditText)
+        searchEditText = view.findViewById(R.id.searchEditText)
         clearButton = view.findViewById(R.id.clearButton)
         progressBar = view.findViewById(R.id.progressBar)
         historyTitle = view.findViewById(R.id.historyTitle)
@@ -64,6 +64,7 @@ class SearchFragment : Fragment() {
         errorPlaceholder = view.findViewById(R.id.errorPlaceholder)
         retryButton = view.findViewById(R.id.retryButton)
     }
+
     private fun initAdapters() {
         historyRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         historyAdapter = TrackAdapter { track -> onTrackClicked(track) }
@@ -73,38 +74,32 @@ class SearchFragment : Fragment() {
         searchAdapter = TrackAdapter { track -> onTrackClicked(track) }
         recyclerView.adapter = searchAdapter
     }
+
     private fun initListeners() {
         searchEditText.doAfterTextChanged { editable ->
             val query = editable?.toString().orEmpty()
             clearButton.visibility = if (query.trim().isNotEmpty()) View.VISIBLE else View.GONE
-            searchJob?.cancel()
-            if (query.isEmpty()) {
-                viewModel.showHistory()
-            } else {
-                searchJob = lifecycleScope.launch {
-                    delay(SEARCH_DELAY_MS)
-                    viewModel.onSearchQueryChanged(query)
-                }
-            }
+            viewModel.onSearchQueryChanged(query)
         }
+
         clearButton.setOnClickListener {
             searchEditText.text.clear()
             searchEditText.clearFocus()
             hideKeyboard()
         }
+
         clearHistoryButton.setOnClickListener {
             viewModel.onClearHistoryClicked()
         }
+
         retryButton.setOnClickListener {
             val query = searchEditText.text.toString().trim()
             if (query.isNotEmpty()) {
-                searchJob?.cancel()
-                searchJob = lifecycleScope.launch {
-                    viewModel.onSearchQueryChanged(query)
-                }
+                viewModel.onSearchQueryChanged(query)
             }
         }
     }
+
     private fun observeViewModel() {
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             hideAllStates()
@@ -126,6 +121,7 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
     private fun hideAllStates() {
         progressBar.visibility = View.GONE
         recyclerView.visibility = View.GONE
@@ -135,10 +131,9 @@ class SearchFragment : Fragment() {
         historyRecyclerView.visibility = View.GONE
         clearHistoryButton.visibility = View.GONE
     }
-    private fun onTrackClicked(track: Track) {
-        viewModel.onTrackClicked(track)
 
-        // Навигация к плееру через NavController с передачей данных трека
+            private fun onTrackClicked(track: Track) {
+               if (!viewModel.onTrackClicked(track)) return
         val bundle = Bundle().apply {
             putLong("trackId", track.trackId ?: 0L)
             putString("trackName", track.trackName)
@@ -153,6 +148,7 @@ class SearchFragment : Fragment() {
         }
         findNavController().navigate(R.id.playerFragment, bundle)
     }
+
     private fun hideKeyboard() {
         val imm = requireActivity().getSystemService(InputMethodManager::class.java)
         imm?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -163,9 +159,5 @@ class SearchFragment : Fragment() {
         if (searchEditText.text.toString().trim().isEmpty()) {
             viewModel.showHistory()
         }
-    }
-
-    companion object {
-        private const val SEARCH_DELAY_MS = 500L
     }
 }
