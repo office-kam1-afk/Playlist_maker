@@ -1,7 +1,8 @@
 package com.example.playlistmaker.presentation.player
 
-import android.os.Bundle
 import android.content.res.ColorStateList
+import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class PlayerFragment : Fragment() {
 
     private lateinit var playPauseButton: ImageView
     private lateinit var favoriteButton: ImageView
+    private lateinit var addToPlaylistButton: ImageView // ← ДОБАВЛЕНО
     private lateinit var progressText: TextView
     private lateinit var coverImage: ImageView
     private lateinit var trackNameText: TextView
@@ -53,14 +55,13 @@ class PlayerFragment : Fragment() {
         initToolbar(view)
         initListeners()
         observeViewModel()
-
-        val track = getTrackFromArgs()
-        viewModel.initTrack(track)
+        viewModel.initTrack(getTrackFromArgs())
     }
 
     private fun initViews(view: View) {
         playPauseButton = view.findViewById(R.id.play_pause_button)
         favoriteButton = view.findViewById(R.id.favorite_button)
+        addToPlaylistButton = view.findViewById(R.id.add_to_playlist) // ← ДОБАВЛЕНО
         progressText = view.findViewById(R.id.progress_text)
         coverImage = view.findViewById(R.id.cover_image)
         trackNameText = view.findViewById(R.id.track_name)
@@ -78,49 +79,51 @@ class PlayerFragment : Fragment() {
 
     private fun initToolbar(view: View) {
         val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
+        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }
 
     private fun initListeners() {
-        playPauseButton.setOnClickListener {
-            viewModel.onPlayPauseClicked()
-        }
-                favoriteButton.setOnClickListener {
-            viewModel.onFavoriteClicked()
-        }
+        playPauseButton.setOnClickListener { viewModel.onPlayPauseClicked() }
 
-        view?.findViewById<ImageView>(R.id.add_to_playlist)?.setOnClickListener { }
+
+        addToPlaylistButton.setOnClickListener { }
+
+        favoriteButton.setOnClickListener { viewModel.onFavoriteClicked() }
     }
+
     private fun observeViewModel() {
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             state.errorMessage?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
+            if (state.isTrackLoaded && state.track != null) renderTrackInfo(state.track)
 
-            if (state.isTrackLoaded && state.track != null) {
-                renderTrackInfo(state.track)
-            }
-                        playPauseButton.setImageResource(
+            playPauseButton.setImageResource(
                 if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
             )
-
             progressText.text = state.progressText
 
-                      val favoriteIcon = if (state.isFavorite) {
-                          R.drawable.ic_like_on
+            if (state.isFavorite) {
+                favoriteButton.setImageResource(R.drawable.ic_like_on)
+                favoriteButton.imageTintList = null
             } else {
-                R.drawable.ic_like
+                favoriteButton.setImageResource(R.drawable.ic_like)
+                favoriteButton.imageTintList = ColorStateList.valueOf(
+                    themeColor(com.google.android.material.R.attr.colorOnSurface)
+                )
             }
-            favoriteButton.setImageResource(favoriteIcon)
         }
+    }
+
+    private fun themeColor(attr: Int): Int {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 
     private fun renderTrackInfo(track: Track) {
         trackNameText.text = track.trackName
         artistNameText.text = track.artistName
-
         val totalSeconds = track.trackTimeMillis?.div(1000) ?: 0
         durationValue.text = String.format(
             Locale.getDefault(),
@@ -128,9 +131,7 @@ class PlayerFragment : Fragment() {
             totalSeconds / 60,
             totalSeconds % 60
         )
-
         loadCover(track.artworkUrl100)
-
         setupOptionalField(albumLabel, albumValue, track.collectionName)
         setupYearField(yearLabel, yearValue, track.releaseDate)
         setupOptionalField(genreLabel, genreValue, track.primaryGenreName)
@@ -176,7 +177,7 @@ class PlayerFragment : Fragment() {
 
     private fun getTrackFromArgs(): Track {
         val args = requireArguments()
-        val track = Track(
+        return Track(
             trackId = args.getLong("trackId", 0L),
             trackName = args.getString("trackName"),
             artistName = args.getString("artistName"),
@@ -188,9 +189,6 @@ class PlayerFragment : Fragment() {
             country = args.getString("country"),
             previewUrl = args.getString("previewUrl")
         )
-
-        track.isFavorite = args.getBoolean("isFavorite", false)
-        return track
     }
 
     override fun onPause() {

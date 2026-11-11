@@ -34,7 +34,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recyclerView = view.findViewById(R.id.recyclerView)
         emptyPlaceholder = view.findViewById(R.id.emptyPlaceholder)
 
@@ -69,7 +68,6 @@ class FavoritesFragment : Fragment() {
             putString("primaryGenreName", track.primaryGenreName)
             putString("country", track.country)
             putString("previewUrl", track.previewUrl)
-            putBoolean("isFavorite", track.isFavorite)
         }
         findNavController().navigate(R.id.action_libraryFragment_to_playerFragment, bundle)
     }

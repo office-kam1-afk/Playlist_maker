@@ -12,19 +12,17 @@ class FavoritesRepositoryImpl(
     private val database: AppDatabase
 ) : FavoritesRepository {
 
-
     private val dao = database.favoritesDao()
 
     override suspend fun addToFavorites(track: Track) {
         dao.insert(track.toEntity())
     }
+
     override suspend fun removeFromFavorites(track: Track) {
         dao.delete(track.toEntity())
     }
 
     override fun getFavorites(): Flow<List<Track>> {
-                return dao.getAllFavorites().map { entities ->
-            entities.map { it.toDomain() }
-        }
+        return dao.getAllFavorites().map { entities -> entities.map { it.toDomain() } }
     }
 }

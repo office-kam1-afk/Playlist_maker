@@ -15,5 +15,5 @@ data class TrackEntity(
     val country: String?,
     val trackTimeMillis: Long?,
     val previewUrl: String?,
-    val insertionOrder: Long = System.currentTimeMillis() // Для сортировки по убыванию даты добавления
+    val insertionOrder: Long = System.currentTimeMillis()
 )

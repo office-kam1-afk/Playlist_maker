@@ -14,7 +14,7 @@ fun TrackEntity.toDomain(): Track {
         primaryGenreName = primaryGenreName,
         country = country,
         previewUrl = previewUrl
-    ).apply { isFavorite = true }
+    )
 }
 
 fun Track.toEntity(): TrackEntity {

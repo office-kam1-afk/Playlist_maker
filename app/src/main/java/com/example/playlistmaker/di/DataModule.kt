@@ -19,10 +19,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
     factory { Gson() }
+
     single {
         val context = get<Context>()
         context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
     }
+
     single { PreferencesDataSource(get()) }
 
 
@@ -34,10 +36,7 @@ val dataModule = module {
         ).fallbackToDestructiveMigration().build()
     }
 
-    single<FavoritesDao> {
-        val db = get<com.example.playlistmaker.data.db.AppDatabase>()
-        db.favoritesDao()
-    }
+    single<FavoritesDao> { get<AppDatabase>().favoritesDao() }
 
     single<ITunesApiService> {
         Retrofit.Builder()
@@ -45,12 +44,9 @@ val dataModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ITunesApiService::class.java)
-   }
-    single<SearchRepository> {
-        SearchRepositoryImpl(get(), get())
     }
-    single<HistoryRepository> {
-        HistoryRepositoryImpl(get(), get())
-    }
+
+    single<SearchRepository> { SearchRepositoryImpl(get()) }
+    single<HistoryRepository> { HistoryRepositoryImpl(get()) }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
 }
