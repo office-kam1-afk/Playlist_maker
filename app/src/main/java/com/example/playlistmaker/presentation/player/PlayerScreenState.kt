@@ -1,6 +1,7 @@
 package com.example.playlistmaker.presentation.player
 
 import android.os.Message
+import com.example.playlistmaker.data.db.FavoritesDao
 import com.example.playlistmaker.domain.entity.Track
 
 data class PlayerScreenState(
@@ -8,5 +9,6 @@ data class PlayerScreenState(
     val isPlaying: Boolean = false,
     val progressText: String = "00:00",
     val errorMessage: String? = null,
-    val isTrackLoaded: Boolean = false
+    val isTrackLoaded: Boolean = false,
+    val isFavorite: Boolean = false
 )

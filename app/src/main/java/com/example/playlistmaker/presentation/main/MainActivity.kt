@@ -39,9 +39,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     override fun onSupportNavigateUp(): Boolean {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment

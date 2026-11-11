@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/emptyPlaceholder"
         android:layout_width="wrap_content"
@@ -30,5 +38,4 @@
             android:textColor="?attr/colorOnSurface"
             android:textSize="19sp" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

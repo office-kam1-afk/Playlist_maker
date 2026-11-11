@@ -8,9 +8,9 @@ class HistoryInteractorImpl(
 ) : HistoryInteractor {
     private val maxHistorySize = 10
 
-    override fun getHistory(): List<Track> = repository.getHistory()
+    override suspend fun getHistory(): List<Track> = repository.getHistory()
 
-    override fun addToHistory(track: Track) {
+    override suspend fun addToHistory(track: Track) {
         val history = repository.getHistory().toMutableList()
         track.trackId?.let { trackId ->
             history.removeAll { it.trackId == trackId }
@@ -19,7 +19,7 @@ class HistoryInteractorImpl(
         repository.saveHistory(history.take(maxHistorySize))
     }
 
-    override fun clearHistory() {
+    override suspend fun clearHistory() {
         repository.clearHistory()
     }
 }

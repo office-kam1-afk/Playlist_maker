@@ -12,4 +12,6 @@ data class Track(
     val primaryGenreName: String? = null,
     val country: String? = null,
     val previewUrl: String?
-)
+){
+    var isFavorite: Boolean = false
+}

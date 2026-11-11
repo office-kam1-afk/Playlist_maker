@@ -6,13 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.domain.interactor.FavoritesInteractor
 import com.example.playlistmaker.domain.entity.Track
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-class PlayerViewModel : ViewModel() {
+class PlayerViewModel ( private val favoritesInteractor: FavoritesInteractor ): ViewModel() {
     private val _screenState = MutableLiveData(PlayerScreenState())
     val screenState: LiveData<PlayerScreenState> = _screenState
 
@@ -23,9 +24,25 @@ class PlayerViewModel : ViewModel() {
         private var progressJob: Job? = null
 
     fun initTrack(track: Track) {
-        _screenState.value = PlayerScreenState(track = track, isTrackLoaded = true)
+        _screenState.value = PlayerScreenState(
+            track = track,
+            isTrackLoaded = true,
+            isFavorite = track.isFavorite
+        )
     }
-
+    fun onFavoriteClicked() {
+        val track = _screenState.value?.track ?: return
+        viewModelScope.launch {
+            if (track.isFavorite) {
+                favoritesInteractor.removeFromFavorites(track)
+                track.isFavorite = false
+            } else {
+                favoritesInteractor.addToFavorites(track)
+                track.isFavorite = true
+            }
+            _screenState.postValue(_screenState.value?.copy(isFavorite = track.isFavorite))
+        }
+    }
     fun onPlayPauseClicked() {
         if (_screenState.value?.isPlaying == true) pausePlayback() else startPlayback()
     }
