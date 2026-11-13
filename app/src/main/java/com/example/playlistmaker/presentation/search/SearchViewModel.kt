@@ -36,7 +36,6 @@ class SearchViewModel(
             showHistory()
             return
         }
-
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_MS) // Debounce для поиска
@@ -55,23 +54,29 @@ class SearchViewModel(
     }
 
     fun showHistory() {
-        val history = historyInteractor.getHistory()
-        _screenState.value = if (history.isEmpty()) SearchScreenState.Default
-        else SearchScreenState.History(history)
+         viewModelScope.launch {
+            val history = historyInteractor.getHistory()
+            _screenState.value = if (history.isEmpty()) SearchScreenState.Default
+            else SearchScreenState.History(history)
+        }
     }
 
-        fun onTrackClicked(track: Track): Boolean {
-                if (clickJob?.isActive == true) return false
-        historyInteractor.addToHistory(track)
+    fun onTrackClicked(track: Track): Boolean {
+        if (clickJob?.isActive == true) return false
+       viewModelScope.launch {
+            historyInteractor.addToHistory(track)
+        }
+
         clickJob = viewModelScope.launch {
             delay(CLICK_DEBOUNCE_MS)
             clickJob = null
         }
         return true
     }
-
     fun onClearHistoryClicked() {
-        historyInteractor.clearHistory()
-        showHistory()
+                viewModelScope.launch {
+            historyInteractor.clearHistory()
+            showHistory()
+        }
     }
 }

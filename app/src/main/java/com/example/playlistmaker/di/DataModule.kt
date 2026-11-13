@@ -1,6 +1,9 @@
 package com.example.playlistmaker.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.playlistmaker.data.db.AppDatabase
+import com.example.playlistmaker.data.db.FavoritesDao
 import com.example.playlistmaker.data.network.ITunesApiService
 import com.example.playlistmaker.data.prefs.PreferencesDataSource
 import com.example.playlistmaker.data.repository_impl.HistoryRepositoryImpl
@@ -15,15 +18,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
-        factory { Gson() }
-        single {
+    factory { Gson() }
+
+    single {
         val context = get<Context>()
         context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
     }
 
-   single {
-        PreferencesDataSource(get())
+    single { PreferencesDataSource(get()) }
+
+
+    single {
+        Room.databaseBuilder(
+            get<Context>(),
+            AppDatabase::class.java,
+            "playlist_maker.db"
+        ).fallbackToDestructiveMigration().build()
     }
+
+    single<FavoritesDao> { get<AppDatabase>().favoritesDao() }
+
     single<ITunesApiService> {
         Retrofit.Builder()
             .baseUrl("https://itunes.apple.com/")
@@ -32,15 +46,7 @@ val dataModule = module {
             .create(ITunesApiService::class.java)
     }
 
-    single<SearchRepository> {
-        SearchRepositoryImpl(get())
-    }
-
-    single<HistoryRepository> {
-        HistoryRepositoryImpl(get())
-    }
-
-    single<SettingsRepository> {
-        SettingsRepositoryImpl(get())
-    }
+    single<SearchRepository> { SearchRepositoryImpl(get()) }
+    single<HistoryRepository> { HistoryRepositoryImpl(get()) }
+    single<SettingsRepository> { SettingsRepositoryImpl(get()) }
 }

@@ -1,6 +1,8 @@
 package com.example.playlistmaker.presentation.player
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +25,8 @@ class PlayerFragment : Fragment() {
     private val viewModel: PlayerViewModel by viewModel()
 
     private lateinit var playPauseButton: ImageView
+    private lateinit var favoriteButton: ImageView
+    private lateinit var addToPlaylistButton: ImageView // ← ДОБАВЛЕНО
     private lateinit var progressText: TextView
     private lateinit var coverImage: ImageView
     private lateinit var trackNameText: TextView
@@ -47,19 +51,17 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews(view)
         initToolbar(view)
         initListeners()
         observeViewModel()
-
-
-        val track = getTrackFromArgs()
-        viewModel.initTrack(track)
+        viewModel.initTrack(getTrackFromArgs())
     }
 
     private fun initViews(view: View) {
         playPauseButton = view.findViewById(R.id.play_pause_button)
+        favoriteButton = view.findViewById(R.id.favorite_button)
+        addToPlaylistButton = view.findViewById(R.id.add_to_playlist) // ← ДОБАВЛЕНО
         progressText = view.findViewById(R.id.progress_text)
         coverImage = view.findViewById(R.id.cover_image)
         trackNameText = view.findViewById(R.id.track_name)
@@ -77,31 +79,58 @@ class PlayerFragment : Fragment() {
 
     private fun initToolbar(view: View) {
         val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
+        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
     }
 
     private fun initListeners() {
         playPauseButton.setOnClickListener { viewModel.onPlayPauseClicked() }
-        view?.findViewById<ImageView>(R.id.add_to_playlist)?.setOnClickListener { }
-        view?.findViewById<ImageView>(R.id.favorite_button)?.setOnClickListener { }
+
+
+        addToPlaylistButton.setOnClickListener { }
+
+        favoriteButton.setOnClickListener { viewModel.onFavoriteClicked() }
     }
 
     private fun observeViewModel() {
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
-            state.errorMessage?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
+            state.errorMessage?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
             if (state.isTrackLoaded && state.track != null) renderTrackInfo(state.track)
-            playPauseButton.setImageResource(if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play)
+
+            playPauseButton.setImageResource(
+                if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
+            )
             progressText.text = state.progressText
+
+            if (state.isFavorite) {
+                favoriteButton.setImageResource(R.drawable.ic_like_on)
+                favoriteButton.imageTintList = null
+            } else {
+                favoriteButton.setImageResource(R.drawable.ic_like)
+                favoriteButton.imageTintList = ColorStateList.valueOf(
+                    themeColor(com.google.android.material.R.attr.colorOnSurface)
+                )
+            }
         }
+    }
+
+    private fun themeColor(attr: Int): Int {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 
     private fun renderTrackInfo(track: Track) {
         trackNameText.text = track.trackName
         artistNameText.text = track.artistName
         val totalSeconds = track.trackTimeMillis?.div(1000) ?: 0
-        durationValue.text = String.format(Locale.getDefault(), "%02d:%02d", totalSeconds / 60, totalSeconds % 60)
+        durationValue.text = String.format(
+            Locale.getDefault(),
+            "%02d:%02d",
+            totalSeconds / 60,
+            totalSeconds % 60
+        )
         loadCover(track.artworkUrl100)
         setupOptionalField(albumLabel, albumValue, track.collectionName)
         setupYearField(yearLabel, yearValue, track.releaseDate)
@@ -111,22 +140,39 @@ class PlayerFragment : Fragment() {
 
     private fun loadCover(artworkUrl: String?) {
         if (!artworkUrl.isNullOrEmpty()) {
-            Glide.with(this).load(artworkUrl.replace("100x100bb.jpg", "512x512bb.jpg"))
+            Glide.with(this)
+                .load(artworkUrl.replace("100x100bb.jpg", "512x512bb.jpg"))
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
-                .placeholder(R.drawable.ic_placeholder).error(R.drawable.ic_placeholder)
-                .centerCrop().apply(RequestOptions().transform(RoundedCorners(8))).into(coverImage)
-        } else coverImage.setImageResource(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
+                .centerCrop()
+                .apply(RequestOptions().transform(RoundedCorners(8)))
+                .into(coverImage)
+        } else {
+            coverImage.setImageResource(R.drawable.ic_placeholder)
+        }
     }
 
     private fun setupOptionalField(label: TextView, value: TextView, text: String?) {
-        if (!text.isNullOrEmpty()) { value.text = text; label.visibility = View.VISIBLE; value.visibility = View.VISIBLE }
-        else { label.visibility = View.GONE; value.visibility = View.GONE }
+        if (!text.isNullOrEmpty()) {
+            value.text = text
+            label.visibility = View.VISIBLE
+            value.visibility = View.VISIBLE
+        } else {
+            label.visibility = View.GONE
+            value.visibility = View.GONE
+        }
     }
 
     private fun setupYearField(label: TextView, value: TextView, releaseDate: String?) {
         if (!releaseDate.isNullOrEmpty() && releaseDate.length >= 4) {
-            value.text = releaseDate.substring(0, 4); label.visibility = View.VISIBLE; value.visibility = View.VISIBLE
-        } else { label.visibility = View.GONE; value.visibility = View.GONE }
+            value.text = releaseDate.substring(0, 4)
+            label.visibility = View.VISIBLE
+            value.visibility = View.VISIBLE
+        } else {
+            label.visibility = View.GONE
+            value.visibility = View.GONE
+        }
     }
 
     private fun getTrackFromArgs(): Track {

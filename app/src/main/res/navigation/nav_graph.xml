@@ -5,13 +5,15 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/libraryFragment">
 
-
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.example.playlistmaker.presentation.library.LibraryFragment"
         android:label="Library"
-        tools:layout="@layout/fragment_library" />
-
+        tools:layout="@layout/fragment_library">
+        <action
+            android:id="@+id/action_libraryFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -19,19 +21,17 @@
         android:label="Search"
         tools:layout="@layout/fragment_search" />
 
-
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.playlistmaker.presentation.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
 
-       <fragment
+    <fragment
         android:id="@+id/playerFragment"
         android:name="com.example.playlistmaker.presentation.player.PlayerFragment"
         android:label="Player"
         tools:layout="@layout/fragment_player">
-
         <argument
             android:name="trackId"
             app:argType="long" />
@@ -71,5 +71,4 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
-
 </navigation>
